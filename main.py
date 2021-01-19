@@ -20,13 +20,12 @@ Y = [
 ]
 
 
-
 if __name__ == '__main__':
     results = dea(X, Y, RTS='vrs')
     print("Efficiency: ")
     for dmu, result in enumerate(results, start=1):
         print(f'DMU {dmu}: {result.fun}')
-    # print(results[0])
+    print(results[0])
 
 
 
