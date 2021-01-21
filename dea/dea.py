@@ -107,9 +107,14 @@ def simplex(X, Y, c, A_ub=None, b_ub=None, A_eq=None, b_eq=None, dmu_number=None
     """
     k, m, n = len(X), len(X[0]), len(Y[0])
     for i in range(0, m):
-        A_ub[i][k] = -X[dmu_number - 1][i]
+        A_ub[i][k] = -X[dmu_number][i]
     for i in range(0, n):
-        b_ub[i + m] = -Y[dmu_number - 1][i]
+        b_ub[i + m] = -Y[dmu_number][i]
+    # print(f'c: {c}')
+    # print(f'A_ub: {A_ub}')
+    # print(f'A_eq: {A_eq}')
+    # print(f'b_ub: {b_ub}')
+    # print(f'b_eq: {b_eq}')
     res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq)
     return res
 
