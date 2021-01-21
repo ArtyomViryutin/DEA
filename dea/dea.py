@@ -32,7 +32,7 @@ class Farrell:
             for sl in sls:
                 if name == 'l' and sum(sls) == 0:
                     continue
-                result += (f'%.2f\t' % sl)
+                result += (f'%.3f\t' % sl)
             result += '\n'
         return result
 
@@ -40,7 +40,7 @@ class Farrell:
         result = ''
         result += 'Efficiency:\n'
         for e in self._efficiency:
-            result += '%.2f\t' % e
+            result += '%.3f\t' % e
         result += '\nLambdas: '
         result += self.print_attr(self._lambdas, 'l')
         result += 'Slacks: '

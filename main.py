@@ -1,6 +1,6 @@
 from dea.dea import dea
 
-X = [
+X1 = [
     [96, 16, 8],
     [110, 22, 1400],
     [100, 18, 1200],
@@ -9,9 +9,7 @@ X = [
 ]
 
 
-
-
-Y = [
+Y1 = [
     [3800, 25, 8.0],
     [4600, 32, 8.5],
     [4400, 35, 8.0],
@@ -20,7 +18,7 @@ Y = [
 ]
 
 
-x = [
+X2 = [
     [2.58, 8.67, 1.52, 1.93],
     [7.51, 5.58, 1.10, 2.43],
     [8.34, 3.83, 1.27, 2.00],
@@ -34,7 +32,7 @@ x = [
 ]
 
 
-y = [
+Y2 = [
     [669],
     [420],
     [103],
@@ -48,15 +46,41 @@ y = [
 ]
 
 
+X3 = [
+    [2],
+    [3],
+    [2],
+    [4],
+    [6],
+    [5],
+    [6],
+    [8]
+    ]
+
+Y3 = [
+    [1],
+    [3],
+    [2],
+    [3],
+    [5],
+    [2],
+    [3],
+    [5]
+    ]
+
+
+
+
+
 if __name__ == '__main__':
-    result = dea(X, Y, RTS='vrs')
-    # print("Efficiency: ")
-    # for dmu, result in enumerate(results, start=1):
-    #     print(f'DMU {dmu}: {result.fun}')
-    # for i in results:
-    #     print(i.slack)
-    print(result)
-
-
+    print("___Example 1:____")
+    result1 = dea(X1, Y1, RTS='vrs')
+    print(result1)
+    print("___Example 2:____")
+    result2 = dea(X2, Y2, RTS='vrs')
+    print(result2)
+    print("___Example 3:____")
+    result3 = dea(X3, Y3, RTS='vrs')
+    print(result3)
 
 
