@@ -1,8 +1,51 @@
 from scipy.optimize import linprog
+import numpy as np
 
 
 class Farrell:
-    pass
+
+    def __init__(self, results):
+        self._efficiency = []
+        self._lambdas = []
+        self._slacks = []
+        for res in results:
+            self._efficiency.append(res.fun)
+            self._lambdas.append(res.x[:len(res.x) - 1])
+            self._slacks.append(res.slack[:len(res.slack - 1)])
+
+    def eff(self):
+        return self._efficiency
+
+    def slack(self):
+        return self._slacks
+
+    def lambdas(self):
+        return self._lambdas
+
+    def print_attr(self, array, name):
+        result = ''
+        for i in range(1, len(array[0]) + 1):
+            result += f'{name}{i}\t\t'
+        result += '\n'
+        for sls in array:
+            result += '\t' * 2
+            for sl in sls:
+                if name == 'l' and sum(sls) == 0:
+                    continue
+                result += (f'%.2f\t' % sl)
+            result += '\n'
+        return result
+
+    def __str__(self):
+        result = ''
+        result += 'Efficiency:\n'
+        for e in self._efficiency:
+            result += '%.2f\t' % e
+        result += '\nLambdas: '
+        result += self.print_attr(self._lambdas, 'l')
+        result += 'Slacks: '
+        result += self.print_attr(self._slacks, 'sl')
+        return result
 
 
 def create_equations(X, Y, RTS='vrs'):
@@ -110,13 +153,8 @@ def simplex(X, Y, c, A_ub=None, b_ub=None, A_eq=None, b_eq=None, dmu_number=None
         A_ub[i][k] = -X[dmu_number][i]
     for i in range(0, n):
         b_ub[i + m] = -Y[dmu_number][i]
-    # print(f'c: {c}')
-    # print(f'A_ub: {A_ub}')
-    # print(f'A_eq: {A_eq}')
-    # print(f'b_ub: {b_ub}')
-    # print(f'b_eq: {b_eq}')
-    res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq)
-    return res
+    result = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, method='highs-ds')
+    return result
 
 
 def dea(X, Y, RTS='vrs'):
@@ -131,9 +169,9 @@ def dea(X, Y, RTS='vrs'):
     details:
         Input orientated efficiency
     """
-
-    result = []
+    results = []
     c, A_ub, b_ub, A_eq, b_eq = create_equations(X, Y, RTS=RTS)
     for dmu_number in range(0, len(X)):
-        result.append(simplex(X, Y, c, A_ub, b_ub, A_eq, b_eq, dmu_number))
-    return result
+        results.append(simplex(X, Y, c, A_ub, b_ub, A_eq, b_eq, dmu_number))
+    farell = Farrell(results)
+    return farell

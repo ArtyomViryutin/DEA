@@ -20,12 +20,42 @@ Y = [
 ]
 
 
+x = [
+    [2.58, 8.67, 1.52, 1.93],
+    [7.51, 5.58, 1.10, 2.43],
+    [8.34, 3.83, 1.27, 2.00],
+    [6.76, 3.83, 1.30, 2.76],
+    [6.99, 5.58, 1.17, 1.52],
+    [5.74, 3.83, 1.07, 2.33],
+    [6.44, 4.50, 1.22, 1.64],
+    [0.23, 3.58, 1.10, 2.12],
+    [5.49, 3.58, 1.32, 1.54],
+    [4.88, 3.83, 1.45, 1.61]
+]
+
+
+y = [
+    [669],
+    [420],
+    [103],
+    [196],
+    [443],
+    [239],
+    [342],
+    [275],
+    [202],
+    [167]
+]
+
+
 if __name__ == '__main__':
-    results = dea(X, Y, RTS='vrs')
-    print("Efficiency: ")
-    for dmu, result in enumerate(results, start=1):
-        print(f'DMU {dmu}: {result.fun}')
-    print(results[0])
+    result = dea(X, Y, RTS='vrs')
+    # print("Efficiency: ")
+    # for dmu, result in enumerate(results, start=1):
+    #     print(f'DMU {dmu}: {result.fun}')
+    # for i in results:
+    #     print(i.slack)
+    print(result)
 
 
 
